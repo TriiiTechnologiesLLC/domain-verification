@@ -3,14 +3,15 @@
 var metafetch = require('metafetch');
 var request = require('request');
 var Promise = require("bluebird");
-var dns = require("dns")
+var dns = require("dns");
 
 var DomainVerifaction = (function() {
 	
   
 	var htmlVerification = function(domain_url,domain_value,domain_html_name,hash_value) {
+		var originalArgs = arguments;
 		return new Promise(function(resolve,reject){
-			if(arguments.length == 4)
+			if(originalArgs.length == 4)
 		{
 			var url = domain_url+'/'+domain_html_name+'-'+domain_value+'.html';
 			var options = {
@@ -38,18 +39,28 @@ var DomainVerifaction = (function() {
 	}
   
 	var txtVerification = function(domain_url,domain_key,domain_value) {
-		var originalArgs = arguments
+		var originalArgs = arguments;
 		return new Promise(function (resolve,reject){
 		if(originalArgs.length == 3){
 			dns.resolveTxt(domain_url, function(error,records){
-				records.forEach(function(record){
-					var expected = domain_key+'='+domain_value
-					if(expected == record[0])
-						resolve(true)
-					else
-						resolve(false)
-				})
-			})
+				if(records == undefined)
+				{
+					resolve(false);
+				} else {
+					records.forEach(function(record){
+						var expected = domain_key+'='+domain_value;
+						if(expected == record[0])
+						{
+							resolve(true);
+						}
+						else {
+							resolve(false);
+						}
+							
+					});
+				}
+				
+			});
 		}
 		else {
 			reject('Mismatch arguments')
@@ -58,8 +69,9 @@ var DomainVerifaction = (function() {
 	}
   
 	var metaTagVerification = function(domain_url,domain_key,domain_value) {
+		var originalArgs = arguments;
 		return new Promise(function(resolve,reject){
-			if(arguments.length == 3)
+			if(originalArgs.length == 3)
 			{
 				metafetch.fetch(domain_url,function(err,result){
 					if(err)
