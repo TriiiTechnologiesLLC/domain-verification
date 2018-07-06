@@ -11,6 +11,7 @@
     "url": "git+https://github.com/SpringRole/domain-verification.git"
   },
   "dependencies": {
+    "bluebird": "^3.5.1",
     "metafetch": "^1.8.1",
     "request": "^2.87.0"
   },

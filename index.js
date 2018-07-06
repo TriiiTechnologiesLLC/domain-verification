@@ -2,12 +2,14 @@
 
 var metafetch = require('metafetch');
 var request = require('request');
+var Promise = require("bluebird");
 
 var DomainVerifaction = (function() {
 	
   
-	var htmlVerification = function(domain_url,domain_value,domain_html_name,hash_value,callback) {
-		if(arguments.length == 5)
+	var htmlVerification = function(domain_url,domain_value,domain_html_name,hash_value) {
+		return new Promise(function(resolve,reject){
+			if(arguments.length == 4)
 		{
 			var url = domain_url+'/'+domain_html_name+'-'+domain_value+'.html';
 			var options = {
@@ -17,53 +19,56 @@ var DomainVerifaction = (function() {
 			request(options,function(error,response,body){
 				if(error)
 				{
-					callback(null,false);
-				} else { console.log('hash_value',hash_value);
-				console.log('body',body);
+					resolve(false);
+				} else {
+
 					if(parseInt(hash_value) == parseInt(body))
 					{
-						callback(null,true);
+						resolve(true);
 					} else {
-						callback(null,false);
+						resolve(false);
 					}
 				}
-			})
+			});
 		} else {
-			callback('Mismatch arguments',null);
+			reject('Mismatch arguments');
 		}
+		});
 	}
   
 	var txtVerification = function() {
 	  console.log('This is a method I want to expose!');
 	}
   
-	var metaTagVerification = function(domain_url,domain_key,domain_value,callback) {
-		if(arguments.length == 4)
-		{
-			metafetch.fetch(domain_url,function(err,result){
-				if(err)
-				{
-					callback(false,null);
-				} else {
-					var checkKey = result.meta[domain_key];
-					if( checkKey != undefined)
+	var metaTagVerification = function(domain_url,domain_key,domain_value) {
+		return new Promise(function(resolve,reject){
+			if(arguments.length == 3)
+			{
+				metafetch.fetch(domain_url,function(err,result){
+					if(err)
 					{
-						if(checkKey === domain_value)
-						{
-							callback(null,true);
-						} else {
-							callback(null,false);
-						}
+						resolve(false);
 					} else {
-						callback(null,false);
+						var checkKey = result.meta[domain_key];
+						if( checkKey != undefined)
+						{
+							if(checkKey === domain_value)
+							{
+								resolve(true);
+							} else {
+								resolve(false);
+							}
+						} else {
+							resolve(false);
+						}
+						
+						
 					}
-					
-					
-				}
-			})
-		} else {
-			callback('Mismatch arguments',null);
-		}
+				});
+			} else {
+				reject('Mismatch arguments');
+			}
+		});
 	}
   
 	return {
