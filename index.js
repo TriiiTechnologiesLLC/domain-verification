@@ -38,17 +38,17 @@ var DomainVerifaction = (function() {
 	}
   
 	var txtVerification = function(domain_url,domain_key,domain_value) {
-	  return new Promise(function (resolve,reject){
-		if(arguments.length == 3){
+		var originalArgs = arguments
+		return new Promise(function (resolve,reject){
+		if(originalArgs.length == 3){
 			dns.resolveTxt(domain_url, function(error,records){
-				for(var i =0; i<records.length; i++) {
-					record = records[i][0]
-					index = record.indexOf('=')
-					if(record.substring(0,index)==domain_key && (record.substring(index+1,record.length) == domain_value))
+				records.forEach(function(record){
+					var expected = domain_key+'='+domain_value
+					if(expected == record[0])
 						resolve(true)
 					else
 						resolve(false)
-				}
+				})
 			})
 		}
 		else {
