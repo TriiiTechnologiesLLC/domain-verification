@@ -1,0 +1,32 @@
+{
+  "name": "domain-verification",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SpringRole/domain-verification.git"
+  },
+  "dependencies": {
+    "metafetch": "^1.8.1",
+    "request": "^2.87.0"
+  },
+  "author": "Rupam Biswal <rupamranjan007@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "metadata",
+    "meta",
+    "tags",
+    "html",
+    "parser",
+    "txt",
+    "open graph"
+  ],
+  "bugs": {
+    "url": "https://github.com/SpringRole/domain-verification/issues"
+  },
+  "homepage": "https://github.com/SpringRole/domain-verification#readme"
+}
