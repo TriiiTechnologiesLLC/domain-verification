@@ -3,6 +3,7 @@
 var metafetch = require('metafetch');
 var request = require('request');
 var Promise = require("bluebird");
+var dns = require("dns")
 
 var DomainVerifaction = (function() {
 	
@@ -36,8 +37,24 @@ var DomainVerifaction = (function() {
 		});
 	}
   
-	var txtVerification = function() {
-	  console.log('This is a method I want to expose!');
+	var txtVerification = function(domain_url,domain_key,domain_value) {
+	  return new Promise(function (resolve,reject){
+		if(arguments.length == 3){
+			dns.resolveTxt(domain_url, function(error,records){
+				for(var i =0; i<records.length; i++) {
+					record = records[i][0]
+					index = record.indexOf('=')
+					if(record.substring(0,index)==domain_key && (record.substring(index+1,record.length) == domain_value))
+						resolve(true)
+					else
+						resolve(false)
+				}
+			})
+		}
+		else {
+			reject('Mismatch arguments')
+		}
+	  });
 	}
   
 	var metaTagVerification = function(domain_url,domain_key,domain_value) {
