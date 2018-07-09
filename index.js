@@ -150,7 +150,7 @@ var DomainVerification = (function() {
 						obj.verified = [];
 					}
 					resolve(obj);
-				}).catch( error =>{ console.log('err',error);
+				}).catch( error =>{
 					reject(error);
 				});
 			} else {
