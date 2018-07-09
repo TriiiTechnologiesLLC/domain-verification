@@ -20,7 +20,7 @@ This module help you to verify domain ownership.
     Verify by uploading a specific HTML to a given domain.
 
   ### Parameters:
-  * domain_url: The URL where the html file can be formed.
+  * domain_url: The URL where the html file can be formed (http://example.com).
   * domain_html_name: The name of the html file expected at 'domain_url'
   * hash_value: The value in the html file body
     

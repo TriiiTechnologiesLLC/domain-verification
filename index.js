@@ -4,6 +4,7 @@ var metafetch = require('metafetch');
 var request = require('request');
 var Promise = require("bluebird");
 var dns = require("dns");
+var parser = require('getdomain');
 
 var DomainVerification = (function() {
 	
@@ -14,7 +15,7 @@ var DomainVerification = (function() {
 			if(original_args.length == 3)
 			{
 				var obj = {};
-				obj.verified = "Html Verification";
+				obj.verified = "htmlVerification";
 				var url = domain_url+'/'+domain_html_name+'.html';
 				var options = {
 					method: 'GET',
@@ -47,25 +48,31 @@ var DomainVerification = (function() {
 		return new Promise(function (resolve,reject){
 			if(original_args.length == 3){
 				var obj = {};
-				obj.verified = "Txt Verification";
-				dns.resolveTxt(domain_url, function(error,records){
+				obj.verified = "txtVerification";
+				var domain = parser.hostname(domain_url);
+				dns.resolveTxt(domain, function(error,records){
 					if(records == undefined)
 					{
 						obj.status = false;
 						resolve(obj);
 					} else {
+						var success = [];
+						var expected = domain_key+'='+domain_value;
 						records.forEach(function(record){
-							var expected = domain_key+'='+domain_value;
 							if(expected == record[0])
 							{
-								obj.status = true;
-								resolve(obj);
-							}
-							else {
-								obj.status = false;
-								resolve(obj);
-							}				
+								success.push(obj.status);
+							} 				
 						});
+
+						if(success.length > 0)
+						{
+							obj.status = true;
+							resolve(obj);
+						} else {
+							obj.status = false;
+							resolve(obj);
+						}
 					}
 				});
 			}
@@ -79,7 +86,7 @@ var DomainVerification = (function() {
 		var original_args = arguments;
 		return new Promise(function(resolve,reject){
 			var obj = {};
-				obj.verified = "Meta tag Verification";
+				obj.verified = "metaTagVerification";
 
 			if(original_args.length == 3)
 			{
@@ -129,9 +136,9 @@ var DomainVerification = (function() {
 					results_data.forEach( data=>{
 						if(data.status)
 						{
-							success.push(data.name);
+							success.push(data.verified);
 						} else {
-							failure.push(data.name);
+							failure.push(data.verified);
 						}
 					});
 					if(success.length > 0)
