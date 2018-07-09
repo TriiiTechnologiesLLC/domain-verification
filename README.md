@@ -1,7 +1,21 @@
 # domain-verification
-Verify domain ownsership, currently supports 3 methods:
+This module help you to verify domain ownership.
 
-## 1. htmlVerification:
+## Install
+
+    $ npm install domain-verification
+
+## Usage
+
+    consta domainVerification = require('domain-verification');
+    domainVerification.html(domain_url,domain_html_name,hash_value);
+    domainVerification.txt(domain_url,domain_key,domain_value);
+    domainVerification.metatag(domain_url,domain_key,domain_value);
+    domainVerification.all(domain_url,domain_key,domain_value,domain_html_name,hash_value);
+
+    We are supporting Promise. 
+    
+## 1. html:
     
     Verify by uploading a specific HTML to a given domain.
 
@@ -14,18 +28,22 @@ Verify domain ownsership, currently supports 3 methods:
   * The domain to be verified has the HTML file specified in the url specified by 'domain_url'.
   * The filename is of the form: 'domain_html_name'.html, eg. 'domainVerified-1233ask.html'
 
-## 2. txtVerification:
+## 2. txt:
     Verify by Txt in the DNS of the domain:
     
-  ### Parameters:
+### Parameters:
 * domain_url: The URL of the domain that has the Txt file added
 * domain_key: The Txt key
 * domain_value: The Txt value
 
-## 3. metaTagVerification:
+## 3. metatag:
     Verify by metatag information of  a domain:
     
   ### Parameters:
   * domain_url: The URL of the domain containing the metatag
   * domain_key: The meta tag key/name
   * domain_value: The value of the meta tag key/name
+
+## 3. all:
+    This methods call all the above 3 function and give you the result:
+    
