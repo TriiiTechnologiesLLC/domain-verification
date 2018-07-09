@@ -8,12 +8,12 @@ var dns = require("dns");
 var DomainVerification = (function() {
 	
   
-	var htmlVerification = function(domain_url,domain_value,domain_html_name,hash_value) {
+	var htmlVerification = function(domain_url,domain_html_name,hash_value) {
 		var original_args = arguments;
 		return new Promise(function(resolve,reject){
 			if(original_args.length == 4)
 			{
-				var url = domain_url+'/'+domain_html_name+'-'+domain_value+'.html';
+				var url = domain_url+'/'+domain_html_name+'.html';
 				var options = {
 					method: 'GET',
 					url: url
@@ -23,7 +23,6 @@ var DomainVerification = (function() {
 					{
 						resolve(false);
 					} else {
-
 						if(hash_value == body)
 						{
 							resolve(true);
