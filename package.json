@@ -1,22 +1,21 @@
 {
   "name": "domain-verification",
-  "version": "1.0.5",
-  "description": "",
+  "version": "1.0.6",
+  "description": "a domain name ownership verification plugin",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SpringRole/domain-verification.git"
+    "url": "git+https://github.com/TriiiTechnologiesLLC/domain-verification.git"
   },
   "dependencies": {
-    "bluebird": "^3.5.1",
-    "getdomain": "^1.3.0",
-    "metafetch": "^1.8.1",
-    "request": "^2.87.0"
+    "axios": "^1.11.0",
+    "getdomain": "^1.3.1",
+    "metafetch": "^5.0.1"
   },
-  "author": "Rupam Biswal <rupamranjan007@gmail.com>",
+  "author": "Rupam Biswal <rupamranjan007@gmail.com> | Fork maintained by Triii Technologies LLC (support@triii.org)",
   "license": "MIT",
   "keywords": [
     "metadata",
@@ -28,7 +27,7 @@
     "open graph"
   ],
   "bugs": {
-    "url": "https://github.com/SpringRole/domain-verification/issues"
+    "url": "https://github.com/TriiiTechnologiesLLC/domain-verification/issues"
   },
-  "homepage": "https://github.com/SpringRole/domain-verification#readme"
+  "homepage": "https://github.com/TriiiTechnologiesLLC/domain-verification#readme"
 }
