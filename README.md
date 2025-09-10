@@ -2,8 +2,13 @@
 This module help you to verify domain ownership.
 
 ## Install
-
-    $ npm install domain-verification
+    download release place in directory, add in package manager
+ex: 
+  "dependencies": {
+    "domain-verification": "file://./domain-verification-1.0.6.tgz"
+  }
+  run
+  npm install
 
 ## Usage
 
