@@ -3,7 +3,7 @@ This module help you to verify domain ownership.
 
 ## Install
 "dependencies": {
-    "domain-verification": "file://./domain-verification-1.0.6.tgz"
+    "domain-verification": "file://./domain-verification-1.0.7.tgz"
 }
 
 download release place in directory, add in package manager
